@@ -7,16 +7,16 @@
 
 #include <string>
 #include <boost/smart_ptr/intrusive_ptr.hpp>
-#include <boost/smart_ptr/shared_ptr.hpp>
+//#include <boost/smart_ptr/shared_ptr.hpp>
 #include "unit.hpp"
-#include "unit_collection.hpp"
+//#include "unit_collection.hpp"
 
 namespace VegaTest2 {
 
     class Flightgroup {
     protected:
         std::string name_{};
-        UnitCollection flightgroup_members_{};
+        boost::container::map<std::string, boost::intrusive_ptr<Unit>> flightgroup_members_{};
         boost::intrusive_ptr<Unit> leader_{};
     };
 

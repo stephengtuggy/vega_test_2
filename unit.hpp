@@ -9,22 +9,24 @@
 #include <cstdint>
 #include <iostream>
 #include <utility>
+#include <boost/container/map.hpp>
 #include <boost/smart_ptr/intrusive_ref_counter.hpp>
 #include <boost/smart_ptr/intrusive_ptr.hpp>
 #include <boost/smart_ptr/shared_ptr.hpp>
 
 namespace VegaTest2 {
 
-    class UnitCollection;
+//    class UnitCollection;
     class Flightgroup;
 
-    class Unit : boost::intrusive_ref_counter<Unit, boost::thread_safe_counter> {
+    class Unit : public boost::intrusive_ref_counter<Unit, boost::thread_safe_counter> {
     protected:
         Flightgroup * flightgroup_{};
         std::string flightgroup_name_{};
         int32_t flightgroup_sub_number_{};
         std::string custom_full_name_{};
-        boost::shared_ptr<UnitCollection> sub_units_{};
+        boost::container::map<std::string, boost::intrusive_ptr<Unit>> sub_units_{};
+        Unit * parent_{};
     public:
         // Default, no-args constructor
         Unit() = default;
@@ -34,13 +36,16 @@ namespace VegaTest2 {
                 flightgroup_name_(std::move(flightgroup_name)),
                 flightgroup_sub_number_(flightgroup_sub_number),
                 custom_full_name_(std::move(custom_full_name)) {}
-        // Copy constructor
-        Unit(Unit const& rhs) = default;
+        // Copy constructor -- forbidden
+        Unit(Unit const& rhs) = delete;
         // Move constructor
         Unit(Unit&& rhs) = default;
         // Destructor
         virtual ~Unit() = default;
-        Unit& operator=(Unit const& rhs) = default;
+        // copy assignment operator -- forbidden
+        Unit& operator=(Unit const& rhs) = delete;
+        // move assignment operator
+        Unit& operator=(Unit&& rhs) = default;
         virtual bool operator<(Unit const& other) const;
 
         virtual std::string getFgID() const;
