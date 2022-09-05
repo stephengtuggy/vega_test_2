@@ -11,6 +11,15 @@ namespace VegaTest2 {
     }
 
     std::string Unit::getFgID() const {
+        // default implementation
+        return getUnitBaseFgID();
+    }
+
+    Unit::~Unit() {
+        std::cout << boost::format("Destructor running for Unit %1%") % getUnitBaseFgID() << std::endl;
+    }
+
+    std::string Unit::getUnitBaseFgID() const {
         if (!custom_full_name_.empty()) {
             return custom_full_name_;
         } else {

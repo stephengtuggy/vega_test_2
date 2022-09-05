@@ -41,7 +41,7 @@ namespace VegaTest2 {
         // Move constructor
         Unit(Unit&& rhs) = default;
         // Destructor
-        virtual ~Unit() = default;
+        virtual ~Unit();    // = default;
         // copy assignment operator -- forbidden
         Unit& operator=(Unit const& rhs) = delete;
         // move assignment operator
@@ -49,6 +49,7 @@ namespace VegaTest2 {
         virtual bool operator<(Unit const& other) const;
 
         virtual std::string getFgID() const;
+        std::string getUnitBaseFgID() const;
     };
 
 } // VegaTest2

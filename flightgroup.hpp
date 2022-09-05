@@ -16,8 +16,20 @@ namespace VegaTest2 {
     class Flightgroup {
     protected:
         std::string name_{};
-        boost::container::map<std::string, boost::intrusive_ptr<Unit>> flightgroup_members_{};
+        boost::container::map<std::string, boost::intrusive_ptr<Unit>> members_{};
         boost::intrusive_ptr<Unit> leader_{};
+    public:
+        Flightgroup();
+        explicit Flightgroup(std::string name);
+        Flightgroup(Flightgroup const & rhs) = delete;
+        Flightgroup(Flightgroup&& rhs) noexcept;
+        ~Flightgroup();
+        Flightgroup& operator=(Flightgroup const& rhs) = delete;
+        Flightgroup& operator=(Flightgroup && rhs) noexcept;
+        std::string getName();
+        void setName(std::string new_name);
+        boost::intrusive_ptr<Unit> getLeader();
+        void setLeader(boost::intrusive_ptr<Unit> new_leader);
     };
 
 } // VegaTest2
