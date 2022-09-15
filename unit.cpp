@@ -2,6 +2,7 @@
 // Created by stephengt on 9/3/22.
 //
 
+#include <iostream>
 #include <boost/format.hpp>
 #include "unit.hpp"
 
